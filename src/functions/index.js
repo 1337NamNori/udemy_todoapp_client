@@ -26,3 +26,11 @@ export const updateTodo = async (id, todo) => {
         console.log(err);
     }
 };
+
+export const deleteTodo = async (id) => {
+    try {
+        await api.deleteTodo(id);
+    } catch (err) {
+        console.log(err);
+    }
+};

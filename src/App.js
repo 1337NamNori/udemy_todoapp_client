@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { readTodos, createTodo, updateTodo } from './functions/index.js';
+import {
+    readTodos,
+    createTodo,
+    updateTodo,
+    deleteTodo,
+} from './functions/index.js';
 import Loading from './components/loading/Loading.js';
 
 function App() {
@@ -47,6 +52,14 @@ function App() {
             await updateTodo(currentID, todo);
             clear();
         }
+    };
+
+    const removeHandler = async (id) => {
+        await deleteTodo(id);
+        let todosCopy = [...todos];
+        todosCopy.filter((todo) => todo._id !== id);
+        setTodos(todosCopy);
+        clear();
     };
 
     return (
@@ -116,7 +129,11 @@ function App() {
                                 {todo.content}
                                 <br />
                             </p>
-                            <a href="#!" className="secondary-content">
+                            <a
+                                onClick={() => removeHandler(todo._id)}
+                                href="#!"
+                                className="secondary-content"
+                            >
                                 <i className="material-icons">delete</i>
                             </a>
                         </li>
